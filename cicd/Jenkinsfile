@@ -1,0 +1,20 @@
+pipeline {
+  agent any
+  stages {
+    stage('Build') {
+      steps {
+        sh 'docker build -t multicloud-app:latest .' 
+      }
+    }
+    stage('Security Scan') {
+      steps {
+        sh 'bash ./security/trivy-scan.sh multicloud-app:latest || true'
+      }
+    }
+    stage('Deploy') {
+      steps {
+        echo 'Deploy stage — implement your deployment here'
+      }
+    }
+  }
+}
